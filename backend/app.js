@@ -1,12 +1,14 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const path = require("path");
+const cors = require("cors");
 dotenv.config({ path: __dirname + "/.env" });
 
 const chats = require("./data/Data");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 
 const app = express();
+app.use(cors());
 
 const userRoute = require("./routes/userRoute");
 const chatRoute = require("./routes/chatRoute.js");
@@ -34,14 +36,12 @@ app.use("/api/message", messageRoute);
 //------------------Deployment------------------//
 
 const __dirname1 = path.resolve();
-console.log("dep: ", process.env);
+//console.log("dep: ", process.env);
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname1, "/frontend/build")));
     console.log("Running in production mode");
     console.log(path.join(__dirname1, "/frontend/build"));
-
-    app.use("*", express.static(path.join(__dirname1, "/frontend/build")));
 } else {
     app.get("/", (req, res) => {
         res.send("API is running");
