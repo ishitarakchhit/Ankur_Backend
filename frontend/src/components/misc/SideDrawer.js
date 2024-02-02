@@ -55,7 +55,9 @@ const handleSearch = async () => {
         Authorization: `Bearer ${user.token}`,
         },
     };
+    console.log("data");
     const { data } = await axios.get(`http://localhost:7070/api/user?search=${search}`, config);
+    console.log(data);
     setLoading(false);
     setSearchResult(data);
     } catch (error) {

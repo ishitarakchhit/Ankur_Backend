@@ -13,10 +13,11 @@ const allUsers = asyncHandler(async (req, res) => {
             ],
             
         }
-        : {};
+    : {};
+    //console.log(keyword);
     const users = await User.find(keyword);
-
-    res, send(users);
+    //console.log("user", users)
+    res.send(users);
 });
 
 

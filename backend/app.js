@@ -35,13 +35,14 @@ app.use("/api/message", messageRoute);
 
 //------------------Deployment------------------//
 
-const __dirname1 = path.resolve();
+const __dirname1 = path.resolve(__dirname, '../');
 //console.log("dep: ", process.env);
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname1, "/frontend/build")));
     console.log("Running in production mode");
     console.log(path.join(__dirname1, "/frontend/build"));
+    app.use("*", express.static(path.join(__dirname1, "/frontend/build")));
 } else {
     app.get("/", (req, res) => {
         res.send("API is running");
@@ -55,6 +56,7 @@ app.use(errorHandler);
 
 const server = app.listen(port, console.log(`Server running on port ${port}`));
 
+
 const io = require("socket.io")(server, {
     pingTimeout: 70000,
     cors: {
@@ -66,7 +68,7 @@ io.on("connection", (socket) => {
     console.log("connected to socket io");
     socket.on("setup", (userData) => {
       socket.join(userData._id);
-      console.log(userData._id);
+      console.log("connected/setup- ",userData._id);
       socket.emit("Connected");
     });
     socket.on("join chat", (room) => {

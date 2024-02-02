@@ -4,6 +4,7 @@ const User = require('../models/userModel');
 
 const auth = asyncHandler(async(req,res,next)=>{
     let token;
+    //console.log(req.headers.authorization);
 
     if(
         req.headers.authorization &&
@@ -17,6 +18,7 @@ const auth = asyncHandler(async(req,res,next)=>{
             next();
         }catch(error){
             res.status(401);
+            console.log("not authorized");
             throw new Error("Not authorized, token failed");
         }
     }
