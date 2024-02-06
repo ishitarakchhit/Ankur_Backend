@@ -6,7 +6,9 @@ const {
     authUser,
     registerListener,
     authListener,
-    allUsers
+    allUsers,
+    getUserDetails,
+    editUserDetails,
 } = require("../controllers/userController");
 
 const router = express.Router();
@@ -16,5 +18,9 @@ router.post("/login", authUser);
 router.post("/listener", registerListener);
 router.post("/listener/login", authListener);
 router.route("/").get(auth, allUsers);
+router.route("/:userId").get(getUserDetails);
+router.put("/:userId", editUserDetails);
+
+
 
 module.exports = router;

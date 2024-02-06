@@ -7,9 +7,9 @@ const allUsers = asyncHandler(async (req, res) => {
     const keyword = req.query.search
         ? {
             $or: [
-                { pref1: { $regex: req.query.search, $options: "i" } },
-                { pref2: { $regex: req.query.search, $options: "i" } },
-                { pref3: { $regex: req.query.search, $options: "i" } }
+                { spec1: { $regex: req.query.search, $options: "i" } },
+                { spec2: { $regex: req.query.search, $options: "i" } },
+                { spec3: { $regex: req.query.search, $options: "i" } }
             ],
             
         }
@@ -22,9 +22,9 @@ const allUsers = asyncHandler(async (req, res) => {
 
 
 const registerUser = asyncHandler(async (req, res) => {
-    const { name, email, password, phone } = req.body;
+    const { name, email, password, phone, role } = req.body;
 
-    if (!name || !email || !password) {
+    if (!name || !email || !password || !role || !phone) {
         res.status(400);
         throw new Error("Please enter all fields");
     }
@@ -35,7 +35,7 @@ const registerUser = asyncHandler(async (req, res) => {
     }
 
     const user = await User.create({
-        name, email, password, phone
+        name, email, password, phone, role
     });
 
     if (user) {
@@ -45,6 +45,7 @@ const registerUser = asyncHandler(async (req, res) => {
             email: user.email,
             password: user.password,
             phone: user.phone,
+            role: user.role,
             token: generateToken(user._id),
         });
     } else {
@@ -52,6 +53,76 @@ const registerUser = asyncHandler(async (req, res) => {
         throw new Error("Fail to create new user");
     }
 });
+
+
+const getUserDetails = asyncHandler(async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const user = await User.findById(userId).select('-password'); 
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.status(200).json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+
+const editUserDetails = asyncHandler(async (req, res) => {
+  const { userId } = req.params;
+  const {
+    age,
+    school_st,
+    class_st,
+    educator_st,
+    gender,
+    location,
+    student_ed,
+    portfolio_thep,
+    work_desc_thep,
+    curr_company_thep,
+    experience_year_thep,
+    spec1,
+    spec2,
+    spec3,
+  } = req.body;
+
+  try {
+    const user = await User.findById(userId);
+
+    if (!user) {
+      res.status(404);
+      throw new Error('User not found');
+    }
+
+    // Update user fields
+    user.age = age || user.age;
+    user.studentDetails.school = school_st || user.studentDetails.school;
+    user.studentDetails.class = class_st || user.studentDetails.class;
+    user.studentDetails.educator = educator_st || user.studentDetails.educator;
+    user.gender = gender || user.gender;
+    user.location = location || user.location;
+    user.student_ed = student_ed || user.student_ed;
+    user.therapistDetails.portfolio = portfolio_thep || user.therapistDetails.portfolio;
+    user.therapistDetails.work_desc = work_desc_thep || user.therapistDetails.work_desc;
+    user.therapistDetails.curr_company = curr_company_thep || user.therapistDetails.curr_company;
+    user.therapistDetails.experience_year = experience_year_thep || user.therapistDetails.experience_year;
+    user.therapistDetails.spec1 = spec1 || user.therapistDetails.spec1;
+    user.therapistDetails.spec2 = spec2 || user.therapistDetails.spec2;
+    user.therapistDetails.spec3 = spec3 || user.therapistDetails.spec3;
+
+    const updatedUser = await user.save();
+
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
 
 
 const authUser = asyncHandler(async (req, res) => {
@@ -164,4 +235,6 @@ module.exports = {
   registerListener,
   authListener,
   allUsers,
+  getUserDetails,
+  editUserDetails
 };

@@ -1,71 +1,108 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 
-const UserSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema(
+  {
     name: {
-        type: String,
-        required: [true, "Please enter your name"]
+      type: String,
+      required: [true, "Please enter your name"],
     },
     email: {
-        type: String,
-        required: [true, "Please enter your email"],
-        unique: true
+      type: String,
+      required: [true, "Please enter your email"],
+      unique: true,
     },
     password: {
-        type: String,
-        required: [true, "Please enter your password"],
+      type: String,
+      required: [true, "Please enter your password"],
     },
     phone: {
-        type: String,
-        required: [true, "Please enter your phone number"]
-    },
-    samename: {
       type: String,
-      default: "Anonymous",
+      required: [true, "Please enter your phone number"],
     },
-    url: {
-      type: String,
-      default: "*%$*&###",
-    },
-    desc: {
+    // samename: {
+    //   type: String,
+    //   default: "Anonymous",
+    // },
+    age: {
       type: String,
       default: "*%$*&###",
     },
-    course: {
+    gender: {
       type: String,
       default: "*%$*&###",
     },
-    college: {
+    location: {
       type: String,
       default: "*%$*&###",
     },
-    year: {
+    role: {
+      // Student, Educator, Therapist
       type: String,
-      default: "*%$*&###",
-    },
-    pref1: {
-      type: String,
-      default: "*%$*&###",
-    },
-    pref2: {
-      type: String,
-      default: "*%$*&###",
-    },
-    pref3: {
-      type: String,
-      default: "*%$*&###",
-    },
-    status: {
-      type: Boolean,
       required: true,
-      default: true,
     },
+    studentDetails: {
+      class: {
+        type: String,
+        default: '*%$*&###',
+      },
+      school: {
+        type: String,
+        default: '*%$*&###',
+      },
+      educator: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+      },
+    },
+    educatorDetails: {
+      students: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+        },
+      ],
+    },
+    therapistDetails: {
+      portfolio: {
+        type: String,
+        default: "*%$*&###",
+      },
+      work_desc: {
+        type: String,
+        default: "*%$*&###",
+      },
+      curr_company: {
+        type: String,
+        default: "*%$*&###",
+      },
+      experience_year: {
+        type: String,
+        default: "*%$*&###",
+      },
+      spec1: {
+        type: String,
+        default: "*%$*&###",
+      },
+      spec2: {
+        type: String,
+        default: "*%$*&###",
+      },
+      spec3: {
+        type: String,
+        default: "*%$*&###",
+      },
+    },
+    // status: {
+    //   type: Boolean,
+    //   required: true,
+    //   default: true,
+    // },
   },
   {
     timestamps: true,
   }
 );
-
 
 UserSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
