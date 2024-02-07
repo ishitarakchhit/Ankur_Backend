@@ -3,32 +3,64 @@ import { Modal, Button, Form } from "react-bootstrap";
 import axios from "axios";
 
 const EditProfileModal = ({ show, handleClose, userData }) => {
-    const [editedFields, setEditedFields] = useState({});
-    
-    if (!userData) {
-        return null; // or render a loading state
-    }
-    
-    console.log("udm:", userData);
+  const [editedFields, setEditedFields] = useState({});
+  const [searchTerm, setSearchTerm] = useState("");
+  const [educatorSearchResults, setEducatorSearchResults] = useState([]);
+  const [selectedEducator, setSelectedEducator] = useState({});
+
+  if (!userData) {
+    return null; // or render a loading state
+  }
+
+  //console.log("udm:", userData);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setEditedFields((prevFields) => ({ ...prevFields, [name]: value }));
   };
 
+  const handleSearchEducators = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:7070/api/user/search?role=educator&searchTerm=${searchTerm}`
+      );
+      setEducatorSearchResults(response.data);
+    } catch (error) {
+      console.error("Error searching educators:", error.message);
+    }
+  };
+
+  const handleSelectEducator = (educator) => {
+    setSelectedEducator(educator);
+    setSearchTerm("");
+    setEducatorSearchResults([]);
+    setEditedFields((prevFields) => ({
+      ...prevFields,
+      educator_st: educator.name,
+    }));
+  };
+
   const handleSaveChanges = async () => {
     try {
+      const updatedFields = {
+        ...editedFields,
+        educator_st: selectedEducator,
+      };
+      //console.log("Updated fields:", updatedFields);
       const response = await axios.put(
         `http://localhost:7070/api/user/${userData._id}`,
-        editedFields
+        updatedFields
       );
 
       console.log("Changes saved:", response.data);
-      handleClose(); // Close the modal after saving changes
+      handleClose();
     } catch (error) {
       console.error("Error saving changes:", error.message);
     }
   };
+
+  //console.log("educatorSearchResults:", educatorSearchResults);
+  //console.log("up", updatedFields);
 
   return (
     <Modal show={show} onHide={handleClose}>
@@ -114,16 +146,35 @@ const EditProfileModal = ({ show, handleClose, userData }) => {
 
               <Form.Group className="mb-3">
                 <Form.Label>Educator</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="educator_st"
-                  defaultValue={
-                    userData.studentDetails.school !== "*%$*&###"
-                      ? userData.studentDetails.school
-                      : ""
-                  }
-                  onChange={handleInputChange}
-                />
+                {educatorSearchResults.length === 0 && (
+                  <div className="d-flex align-items-center">
+                    <Form.Control
+                      type="text"
+                      name="educator_st"
+                      value={editedFields['educator_st'] || ''}
+                      onChange={handleInputChange}
+                    />
+                    <Button variant="primary" onClick={handleSearchEducators}>Search</Button>
+                  </div>
+                )}
+                {educatorSearchResults.length > 0 && (
+                  <div>
+                    <Form.Control
+                      type="text"
+                      placeholder="Search educator..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                    <Button variant="primary" onClick={handleSearchEducators}>Search</Button>
+                    <ul>
+                      {educatorSearchResults.map((educator) => (
+                        <li key={educator._id} onClick={() => handleSelectEducator(educator)}>
+                          {educator.name}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </Form.Group>
             </>
           )}

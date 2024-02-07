@@ -1,6 +1,7 @@
 const User = require("../models/userModel");
 const generateToken = require("../config/generateToken");
 const asyncHandler = require("express-async-handler");
+const bcrypt = require("bcryptjs");
 
 
 const allUsers = asyncHandler(async (req, res) => {
@@ -18,6 +19,28 @@ const allUsers = asyncHandler(async (req, res) => {
     const users = await User.find(keyword);
     //console.log("user", users)
     res.send(users);
+});
+
+
+
+const searchUsersByRole = asyncHandler(async (req, res) => {
+  const { role, searchTerm } = req.query;
+
+  //console.log(role, searchTerm);
+
+  try {
+    let users;
+    if (role === 'educator' || role === 'student' || role === 'therapist') {
+      users = await User.find({ role, name: { $regex: searchTerm, $options: 'i' } });
+    } else {
+      return res.status(400).json({ message: 'Invalid role' });
+    }
+    //console.log(users);
+
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
 
@@ -79,6 +102,7 @@ const editUserDetails = asyncHandler(async (req, res) => {
     school_st,
     class_st,
     educator_st,
+    therapist_st,
     gender,
     location,
     student_ed,
@@ -89,6 +113,7 @@ const editUserDetails = asyncHandler(async (req, res) => {
     spec1,
     spec2,
     spec3,
+    students_thep,
   } = req.body;
 
   try {
@@ -104,13 +129,15 @@ const editUserDetails = asyncHandler(async (req, res) => {
     user.studentDetails.school = school_st || user.studentDetails.school;
     user.studentDetails.class = class_st || user.studentDetails.class;
     user.studentDetails.educator = educator_st || user.studentDetails.educator;
+    user.studentDetails.therapist = therapist_st || user.studentDetails.therapist;
     user.gender = gender || user.gender;
     user.location = location || user.location;
-    user.student_ed = student_ed || user.student_ed;
+    user.educatorDetails.students = student_ed || user.educatorDetails.students;
     user.therapistDetails.portfolio = portfolio_thep || user.therapistDetails.portfolio;
     user.therapistDetails.work_desc = work_desc_thep || user.therapistDetails.work_desc;
     user.therapistDetails.curr_company = curr_company_thep || user.therapistDetails.curr_company;
     user.therapistDetails.experience_year = experience_year_thep || user.therapistDetails.experience_year;
+    user.therapistDetails.students = students_thep || user.therapistDetails.students;
     user.therapistDetails.spec1 = spec1 || user.therapistDetails.spec1;
     user.therapistDetails.spec2 = spec2 || user.therapistDetails.spec2;
     user.therapistDetails.spec3 = spec3 || user.therapistDetails.spec3;
@@ -126,22 +153,32 @@ const editUserDetails = asyncHandler(async (req, res) => {
 
 
 const authUser = asyncHandler(async (req, res) => {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email });
-    if (user && (await user.matchPassword(password))) {
-        res.json({
-            _id: user._id,
-            name: user.name,
-            email: user.email,
-            password: user.password,
-            phone: user.phone,
-            token: generateToken(user._id),
-        });
+  const { email, password } = req.body;
+  const user = await User.findOne({ email });
+
+  if (user) {
+    // Compare the plain text password with the hashed password stored in the database
+    const isPasswordMatch = await bcrypt.compare(password, user.password);
+    
+    if (isPasswordMatch) {
+      res.json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        token: generateToken(user._id),
+      });
     } else {
-        res.status(401);
-        throw new Error("Invalid email or password");
+      res.status(401);
+      throw new Error("Invalid email or password1");
     }
+  } else {
+    res.status(401);
+    throw new Error("Invalid email or password2");
+  }
 });
+
+
 
 
 
@@ -236,5 +273,6 @@ module.exports = {
   authListener,
   allUsers,
   getUserDetails,
-  editUserDetails
+  editUserDetails,
+  searchUsersByRole
 };

@@ -16,12 +16,11 @@ const Sidebar = () => {
   const handleCloseEditModal = () => {
     setShowEditModal(false);
   };
+  
 
   const userFromLocalStorage = JSON.parse(localStorage.getItem("userInfo"));
 
   useEffect(() => {
-    //console.log("User data:", userFromLocalStorage);
-
     if (userFromLocalStorage && userFromLocalStorage._id) {
       const fetchUserData = async () => {
         try {
@@ -39,6 +38,7 @@ const Sidebar = () => {
       console.log("User information not found");
     }
   }, []);
+  
 
   const getProfileIcon = () => {
     if (userData && userData.gender === "female") {
@@ -50,10 +50,13 @@ const Sidebar = () => {
     }
   };
 
+  //console.log("userData:", userData);
+
   return (
     <>
       <Col className="sidebar">
         <div className="profile-section">
+          
           <div className="profile-icon">{getProfileIcon()}</div>
           <div className="user-details">
             <h4>{userData ? userData.name : "Guest"}</h4>
@@ -100,17 +103,22 @@ const Sidebar = () => {
                 userData.studentDetails.school !== "*%$*&###"
                   ? userData.studentDetails.school
                   : "--"
+                }`}</p>
+              <p>{`Educator: ${
+                userData.studentDetails.educator !== "*%$*&###"
+                  ? userData.studentDetails.educator.name
+                  : "--"
               }`}</p>
             </>
           )}
 
-          {userData && userData.role === "educator" && (
+          {/* {userData && userData.role === "educator" && (
             <>
               <p>{`School: ${
                 userData.school_st !== "*%$*&###" ? userData.school_st : "--"
               }`}</p>
             </>
-          )}
+          )} */}
 
           {userData && userData.role === "therapist" && (
             <>

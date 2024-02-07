@@ -20,10 +20,11 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: [true, "Please enter your phone number"],
     },
-    // samename: {
-    //   type: String,
-    //   default: "Anonymous",
-    // },
+    role: {
+      type: String,
+      required: true,
+      // Possible roles: Student, Educator, Therapist
+    },
     age: {
       type: String,
       default: "*%$*&###",
@@ -36,30 +37,38 @@ const UserSchema = new mongoose.Schema(
       type: String,
       default: "*%$*&###",
     },
-    role: {
-      // Student, Educator, Therapist
-      type: String,
-      required: true,
-    },
     studentDetails: {
       class: {
         type: String,
-        default: '*%$*&###',
+        default: "*%$*&###",
       },
       school: {
         type: String,
-        default: '*%$*&###',
+        default: "*%$*&###",
       },
       educator: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        id: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+        },
+        name: String,
+      },
+      therapist: {
+        id: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+        },
+        name: String,
       },
     },
     educatorDetails: {
       students: [
         {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "User",
+          id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+          },
+          name: String, 
         },
       ],
     },
@@ -92,24 +101,29 @@ const UserSchema = new mongoose.Schema(
         type: String,
         default: "*%$*&###",
       },
+      students: [
+        {
+          id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+          },
+          name: String, 
+        },
+      ],
     },
-    // status: {
-    //   type: Boolean,
-    //   required: true,
-    //   default: true,
-    // },
   },
   {
     timestamps: true,
   }
 );
 
+
 UserSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
 UserSchema.pre("save", async function (next) {
-  if (!this.isModified) {
+  if (!this.isModified()) {
     next();
   }
   const salt = await bcrypt.genSalt(10);

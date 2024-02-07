@@ -9,6 +9,7 @@ const {
     allUsers,
     getUserDetails,
     editUserDetails,
+    searchUsersByRole,
 } = require("../controllers/userController");
 
 const router = express.Router();
@@ -18,6 +19,7 @@ router.post("/login", authUser);
 router.post("/listener", registerListener);
 router.post("/listener/login", authListener);
 router.route("/").get(auth, allUsers);
+router.route("/search").get(searchUsersByRole);
 router.route("/:userId").get(getUserDetails);
 router.put("/:userId", editUserDetails);
 
