@@ -1,26 +1,28 @@
-.PandC-s1-gridContainer{
+.PandC-s1-gridContainer {
     display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(520px, 1fr));
-  /* background-color: antiquewhite; */
-  /* background: rgb(255,255,255); */
-/* background: linear-gradient(83deg, rgba(255,255,255,1) 29%, rgb(216, 240, 181) 100%); */
+    grid-template-columns: repeat(auto-fit, minmax(520px, 1fr));
+    /* background-color: antiquewhite; */
+    /* background: rgb(255,255,255); */
+    /* background: linear-gradient(83deg, rgba(255,255,255,1) 29%, rgb(216, 240, 181) 100%); */
 }
 
 /* .PandC-s1-gridDiv{
 } */
 
-.PandC-s1-gridDiv-Img1{
+.PandC-s1-gridDiv-Img1 {
     margin-left: 10%;
     margin-top: 20px;
     width: 80%;
     border-radius: 0% 5% 5% 0%;
 }
-.PandC-s1-gridDiv2-textDiv{
+
+.PandC-s1-gridDiv2-textDiv {
     display: flex;
     align-items: center;
     flex-direction: column;
 }
-.PandC-s1-gridDiv2-text1{
+
+.PandC-s1-gridDiv2-text1 {
     font-size: 48px;
     font-family: "Poppins";
     line-height: 30px;
@@ -28,7 +30,8 @@
     color: #1e144f;
     margin-top: 60px;
 }
-.PandC-s1-gridDiv2-text2{
+
+.PandC-s1-gridDiv2-text2 {
     width: 80%;
     margin-top: 50px;
     font-size: 24px;
@@ -37,10 +40,12 @@
     color: #786e8f;
     text-align: center;
 }
-.PandC-s1-gridDiv2-text3{
+
+.PandC-s1-gridDiv2-text3 {
     text-decoration: underline;
 }
-.PandC-s1-gridDiv2-ButtonDiv{
+
+.PandC-s1-gridDiv2-ButtonDiv {
     margin-top: 60px;
     border-radius: 20px;
     width: 30%;
@@ -56,28 +61,32 @@
     border: 2px solid black;
     background-color: #a083cc;
 }
-.PandCButton{
+
+.PandCButton {
     font-size: 40px;
     color: white;
     margin-right: 10px;
 }
-.PandC-s1-gridDiv2-ButtonDiv:hover{
+
+.PandC-s1-gridDiv2-ButtonDiv:hover {
     background-color: #afdf68;
     transition: 0.5s ease-in-out;
 }
 
-@media only screen and (max-width: 1040px){
-    .PandC-s1-gridContainer{
+@media only screen and (max-width: 1040px) {
+    .PandC-s1-gridContainer {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         ;
     }
-    .PandC-s1-gridDiv-Img1{
+
+    .PandC-s1-gridDiv-Img1 {
         width: 50%;
     }
-    .PandC-s1-gridDiv-ImgContainer{
+
+    .PandC-s1-gridDiv-ImgContainer {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -85,28 +94,34 @@
         width: 100%;
         margin-left: -50px;
     }
-    .PandC-s1-gridDiv2-text1{
+
+    .PandC-s1-gridDiv2-text1 {
         font-size: 35px;
     }
-    .PandC-s1-gridDiv2-text2{
+
+    .PandC-s1-gridDiv2-text2 {
         font-size: 20px;
     }
-  }
-  @media only screen and (max-width: 640px){
-    .PandC-s1-gridDiv-ImgContainer{
-       
+}
+
+@media only screen and (max-width: 640px) {
+    .PandC-s1-gridDiv-ImgContainer {
+
         margin-left: -30px;
     }
-    .PandC-s1-gridDiv2-text1{
+
+    .PandC-s1-gridDiv2-text1 {
         font-size: 30px;
     }
-    .PandC-s1-gridDiv2-text2{
+
+    .PandC-s1-gridDiv2-text2 {
         font-size: 15px;
     }
-    .PandC-s1-gridDiv2-ButtonDiv{
+
+    .PandC-s1-gridDiv2-ButtonDiv {
         width: 27%;
-    height: 40px;
-    font-size: 17px;
-    border-radius: 10px;
+        height: 40px;
+        font-size: 17px;
+        border-radius: 10px;
     }
-  }
+}

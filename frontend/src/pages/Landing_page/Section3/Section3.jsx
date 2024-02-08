@@ -22,10 +22,10 @@ const Section3 = () => {
               </span>
             </div>
             <div className="s3-gridDiv1-text">
-              <div className="s3-gridDiv1-Text1">All Specialist</div>
+              <div className="s3-gridDiv1-Text1">Mind Games</div>
               <div className="s3-gridDiv1-Text2">
-                You can communicate with a wide variety of people who have
-                diverse areas of expertise.
+                Learning should be fun! Our platform offers a wide range of interactive and stimulating mental games designed to reinforce learning objectives, enhance cognitive abilities, and promote engagement and motivation.
+
               </div>
             </div>
           </div>
@@ -35,14 +35,13 @@ const Section3 = () => {
                 className="material-symbols-outlined icon"
                 style={{ color: "#ffab21" }}
               >
-                Private_connectivity
+                trending_up
               </span>
             </div>
             <div className="s3-gridDiv1-text">
-              <div className="s3-gridDiv1-Text1">Secure</div>
+              <div className="s3-gridDiv1-Text1">Track Progress</div>
               <div className="s3-gridDiv1-Text2">
-                All of your information is secure with us, and all of your
-                discussions are encrypted.
+                We understand the importance of tracking progress and adjusting interventions accordingly. With Ankur, educators, parents, and therapists can monitor student performance in real-time, enabling timely interventions and personalized support.
               </div>
             </div>
           </div>
@@ -52,14 +51,13 @@ const Section3 = () => {
                 className="material-symbols-outlined icon"
                 style={{ color: "#87d44a" }}
               >
-                reviews
+                forum
               </span>
             </div>
             <div className="s3-gridDiv1-text">
-              <div className="s3-gridDiv1-Text1">Feedback</div>
+              <div className="s3-gridDiv1-Text1">Collaboration</div>
               <div className="s3-gridDiv1-Text2">
-                95% of our prior users have provided us with positive comments,
-                and our initiative has received favourable reviews.
+                Collaboration is key to success. Ankur facilitates seamless communication and collaboration among teachers, parents, therapists, and students. Regular feedback from stakeholders ensures that educational strategies are effective and aligned with individual goals.
               </div>
             </div>
           </div>
@@ -69,14 +67,13 @@ const Section3 = () => {
                 className="material-symbols-outlined icon"
                 style={{ color: "#72569d" }}
               >
-                forum
+                healing
               </span>
             </div>
             <div className="s3-gridDiv1-text">
-              <div className="s3-gridDiv1-Text1">Chat Support</div>
+              <div className="s3-gridDiv1-Text1">Therapy</div>
               <div className="s3-gridDiv1-Text2">
-                On our platform, we offer the chat and meet features for
-                convenient contact.
+                Our platform integrates traditional education with therapies tailored to the unique needs of mentally retarded individuals. Through these therapies , we promote cognitive development, communication skills, and emotional well-being.
               </div>
             </div>
           </div>

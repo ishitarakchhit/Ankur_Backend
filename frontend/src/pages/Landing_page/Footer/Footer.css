@@ -1,49 +1,57 @@
-.footer-mainContainer{
- background-color: #feede0;
+.footer-mainContainer {
+    background-color: #d5cec4;
     margin-top: 70px;
 }
-.footer-gridContainer{
+
+.footer-gridContainer {
     display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
-  /* background-color: aqua; */
-  /* grid-auto-rows: 755px; */
+    grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+    /* background-color: aqua; */
+    /* grid-auto-rows: 755px; */
 }
-.footer-gridDiv{
+
+.footer-gridDiv {
     display: flex;
     align-items: center;
     flex-direction: column;
 }
-.footer_LogoDiv{
+
+.footer_LogoDiv {
     display: flex;
     align-items: center;
     flex-direction: column;
     margin-left: 20px;
 }
-.footerLogo{
-    font-family:  "Roboto";
+
+.footerLogo {
+    font-family: "Roboto";
     font-size: 30px;
     font-weight: 700;
     color: #1e144f;
     margin-top: 20px;
 }
-.footer_textDiv{
+
+.footer_textDiv {
     font-family: "Poppins";
     font-size: 16px;
     font-weight: 500;
     color: #73579d;
     width: 80%;
 }
-.footer_iconDiv{
+
+.footer_iconDiv {
     display: flex;
     margin-top: 15px;
     /* flex-direction: column; */
 }
-.footerIcon{
+
+.footerIcon {
     width: 30px;
     margin-left: 10px;
     cursor: pointer;
 }
-.Footer_list{
+
+.Footer_list {
     list-style: none;
     font-family: "Poppins";
     font-size: 16px;
@@ -52,7 +60,8 @@
     /* margin-top: 20px; */
     line-height: 40px;
 }
-.Footer_list2{
+
+.Footer_list2 {
     list-style: none;
     font-family: "Poppins";
     font-size: 16px;
@@ -61,7 +70,8 @@
     margin-top: 20px;
     line-height: 40px;
 }
-.footer-gridDiv2{
+
+.footer-gridDiv2 {
     display: flex;
     align-items: center;
     flex-direction: column;

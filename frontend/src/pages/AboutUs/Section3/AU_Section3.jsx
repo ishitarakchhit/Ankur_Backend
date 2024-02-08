@@ -10,7 +10,7 @@ const AU_Section3 = () => {
             <div className="AU_section3_gridContainerText">
               <p className="AU_section3_gridContainerText1">OUR MISSION</p>
               <p className="AU_section3_gridContainerText2">
-              Support and assistance to physiology students as they pursue their educational and professional objectives, while also highlighting the significance of mental health in the field.
+              Ankur's mission is to increase the inclusivity of mainstream schools by providing comprehensive support for students with mental disabilities. 
               </p>
             </div>
             <div className="AU_section3_gridContainerBlock">
@@ -19,10 +19,10 @@ const AU_Section3 = () => {
               </div>
               <div className="AU_section3_gridContainerBlock-text">
                 <div className="AU_section3_gridContainerBlock-Text1">
-                Promoting mental health
+                How we started
                 </div>
                 <div className="AU_section3_gridContainerBlock-Text2">
-                We provide support for mental health because we are aware that it is essential for living a good life.
+                During our pre-final year, we identified a critical gap in the realm of education for individuals with mental disabilities. This realization prompted us to direct our efforts towards a mission of building a platform that is more than just a tool but is a movement to revolutionize education for mentally retarded students.
                 </div>
               </div>
             </div>
@@ -32,10 +32,10 @@ const AU_Section3 = () => {
               </div>
               <div className="AU_section3_gridContainerBlock-text">
                 <div className="AU_section3_gridContainerBlock-Text1">
-                Empowering physiology students
+                What we do
                 </div>
                 <div className="AU_section3_gridContainerBlock-Text2">
-                Our first priority is helping students meet their academic and professional goals while highlighting the importance of mental health and wellbeing throughout the process.
+                We aim to bridge the gap between traditional education and the unique needs of these students through innovative technology, evidence-based therapy, and collaborative partnerships.
                 </div>
               </div>
             </div>
@@ -44,7 +44,7 @@ const AU_Section3 = () => {
             <div className="AU_section3_gridContainerText">
               <p className="AU_section3_gridContainerText1">OUR VISION</p>
               <p  className="AU_section3_gridContainerText2">
-              The goal is to aid physiology students in their academic and professional endeavours while highlighting the importance of mental wellness and health in the field.
+              At Ankur, our vision is to create a world where every individual has equal access to quality education and opportunities for success. 
               </p>
             </div>
             <div className="AU_section3_gridContainerBlock AU_section3_gridContainerBlock-width">
@@ -53,11 +53,10 @@ const AU_Section3 = () => {
               </div>
               <div className="AU_section3_gridContainerBlock-text">
                 <div className="AU_section3_gridContainerBlock-Text1">
-                Establishing a cooperation network
-
+                Collaborative Feedback and Engaging Learning
                 </div>
                 <div className="AU_section3_gridContainerBlock-Text2">
-                Through our collaborations with groups and businesses, link students to a variety of internship possibilities.
+                Ankur prioritizes collaboration among teachers, parents, therapists, and students. Regular feedback ensures effective educational strategies aligned with individual goals. Additionally, engaging mental games reinforce learning objectives, boost cognitive skills, and inspire motivation.
                 </div>
               </div>
             </div>
@@ -67,11 +66,11 @@ const AU_Section3 = () => {
               </div>
               <div className="AU_section3_gridContainerBlock-text">
                 <div className="AU_section3_gridContainerBlock-Text1">
-                Creating a comprehensive resource
+                Therapeutic Education and Monitoring
 
                 </div>
                 <div className="AU_section3_gridContainerBlock-Text2">
-                Our students are assets for us so we will serve as a one-stop shop for students looking for internships  and mental health support.
+                Ankur combines educational content with tailored therapeutic techniques for mental challenges, fostering cognitive development and emotional well-being. Continuous monitoring allows timely support from educators, parents, and therapists.
 
                 </div>
               </div>

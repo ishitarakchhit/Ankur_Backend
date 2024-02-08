@@ -1,11 +1,13 @@
 .AU_section5_mainContainer {
   margin-top: 80px;
 }
+
 .AU_section5_TextContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
 .AU_section5_TextContainer-Text1 {
   font-family: "Poppins", "sans-serif";
   font-size: 16px;
@@ -13,6 +15,7 @@
   line-height: 28px;
   color: rgb(18, 115, 235);
 }
+
 .AU_section5_TextContainer-Text2 {
   margin-top: 0px;
   font-family: "Poppins", "sans-serif";
@@ -21,6 +24,7 @@
   line-height: 40px;
   color: rgb(28, 27, 27);
 }
+
 .AU_section5_gridContainer {
   /* background-color: rgb(137, 125, 125); */
   display: grid;
@@ -31,11 +35,13 @@
   margin-left: 180px;
   gap: 20px;
 }
+
 .AU_section5_gridContainerDiv {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
 .AU_section5_gridContainerDiv-img {
   width: 250px;
   height: 350px;
@@ -47,17 +53,19 @@
 }
 
 .AU_section5_gridContainerDiv-textDiv {
-    margin-top: 20px;
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
 .AU_section5_gridContainerDiv-text1 {
   font-family: "Poppins", "sans-serif";
   font-size: 20px;
   font-weight: 600;
   color: rgb(16, 16, 16);
 }
+
 .AU_section5_gridContainerDiv-text2 {
   margin-top: 6px;
   font-family: "Roboto", "sans-serif";
@@ -67,30 +75,35 @@
 }
 
 
-@media only screen and (max-width: 1380px){
-  .AU_section5_gridContainer{
-      margin-left: 130px;
+@media only screen and (max-width: 1380px) {
+  .AU_section5_gridContainer {
+    margin-left: 130px;
   }
 }
-@media only screen and (max-width: 888px){
-  .AU_section5_gridContainer{
-      margin-left: 110px;
+
+@media only screen and (max-width: 888px) {
+  .AU_section5_gridContainer {
+    margin-left: 110px;
   }
 }
-@media only screen and (max-width: 714px){
-  .AU_section5_gridContainer{
-      width: 100%;
-      margin-left: 0px;
+
+@media only screen and (max-width: 714px) {
+  .AU_section5_gridContainer {
+    width: 100%;
+    margin-left: 0px;
   }
 }
-@media only screen and (max-width: 442px){
-  .AU_section5_TextContainer-Text1{
+
+@media only screen and (max-width: 442px) {
+  .AU_section5_TextContainer-Text1 {
     font-size: 15px;
   }
-  .AU_section5_TextContainer-Text2{
+
+  .AU_section5_TextContainer-Text2 {
     font-size: 24px;
   }
-  .AU_section5_gridContainerDiv-img{
+
+  .AU_section5_gridContainerDiv-img {
     width: 200px;
     height: 300px;
   }

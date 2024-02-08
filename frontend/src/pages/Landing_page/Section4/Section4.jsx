@@ -1,6 +1,6 @@
 import React from "react";
 import "./Section4.css";
-import img1 from "../s4-img.png";
+import img1 from "../s5-img.png";
 
 const Section4 = () => {
   return (
@@ -14,43 +14,43 @@ const Section4 = () => {
           </div>
           <div className="s4-gridDiv2">
             <div className="s4-gridDiv2-textContainer">
+            <br></br> 
               <div className="s4-gridDiv2-text1">
-                Start an online <br />
-                discussion with an expert.
+                Start your Cognitive Retraining   <br />
+                journey with us.
               </div>
               <div className="s4-gridDiv2-text2">
-                You can talk with our experts whenever it suits you and is
-                convenient for you to do so. We have a number of professionals
-                in many fields available on our platform who can assist you.
+                Explore Ankur's engaging mental games at your convenience, designed to foster cognitive development and enjoyment for individuals with diverse learning needs.We have games in area of
               </div>
               <div className="s4-grid-iconsDiv">
                 <div className="s4-grid-icon">
                   <div className="s4-grid-icon1">
-                    <span className="material-symbols-outlined s4-icons">chat</span>
-                    <span className="s4-iconText"> Chat</span>
+                    <span className="material-symbols-outlined s4-icons">school</span>
+                    <span className="s4-iconText"> Educational Games</span>
                   </div>
                   <div className="s4-grid-icon1">
-                    <span className="material-symbols-outlined s4-icons">call</span>
-                    <span className="s4-iconText"> Phone</span>
+                    <span className="material-symbols-outlined s4-icons">visibility</span>
+                    <span className="s4-iconText"> Vision</span>
                   </div>
                 </div>
                 <div className="s4-grid-icon">
                   <div className="s4-grid-icon1">
                     <span className="material-symbols-outlined s4-icons">
-                      contact_support
+                      lightbulb
                     </span>
-                    <span className="s4-iconText"> Query</span>
+                    <span className="s4-iconText"> Problem Solving     </span>
                   </div>
                   <div className="s4-grid-icon1">
                     <span className="material-symbols-outlined s4-icons">
-                      video_call
+                      Memory
                     </span>
-                    <span className="s4-iconText"> Video </span>
+                    <span className="s4-iconText"> Memory </span>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="s4-grid2-button">Start Chat Consultation</div>
+            <div className="s4-grid2-button">Start Playing Now </div>
+            <br></br>
           </div>
         </div>
       </div>

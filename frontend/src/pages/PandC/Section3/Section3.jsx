@@ -6,10 +6,10 @@ const Section3 = () => {
     <>
     <div className="PandC-s3-mainDiv">
         <div className="PandC-s3-TextDiv">
-        "I think it’s really important to take the stigma away from mental health… 
-         My brain and my heart are really important to  I don’t know why I wouldn’t seek help to have those things be as healthy as my teeth."
+        "Every child is a gifted child.
+        <br></br> The only question is, 'What is his gift?'" 
         <br />
-        Kerry Washington, from HuffPost
+        -Pablo Picasso
         </div>
     </div>
     </>

@@ -1,6 +1,6 @@
 import React from "react";
 import "./Section2.css";
-import img1 from "../../../Images/pandc/pandc-img2.png";
+
 
 const Section2 = () => {
   return (
@@ -9,31 +9,28 @@ const Section2 = () => {
         <div className="PandC-s2-gridContainer">
           <div className="PandC-s2-gridDiv">
             <div className="PandC-s2-gridDiv2-textDiv">
-              <div className="PandC-s2-gridDiv2-text1">Our Programme</div>
+              <div className="PandC-s2-gridDiv2-text1">Why Our Community? </div>
               <div className="PandC-s2-gridDiv2-text2">
-                Our platform offers a number of programmes to promote mental
-                health because it is the area of medicine that our society
-                neglects the most. For this reason, it is crucial to have a
-                proper understanding of mental health, thus we invited a number
-                of expert speakers to share their knowledge.
+                <ul>
+                <li><strong>Access to Expertise :</strong> Joining our community grants you access to a wealth of expertise from educators, therapists, and professionals in various fields who are passionate about inclusive education and supporting individuals with mental disabilities.</li>
+                
+                <li><strong>Collaborative Support :</strong> In our community, you'll find a supportive network of like-minded individuals who share common goals and challenges.</li>
+                <li><strong>Continuous Learning :</strong> Stay updated on the latest trends, research findings, and best practices in the field of inclusive education. Engage in discussions, attend webinars, and participate in workshops to continue learning and growing professionally.</li>
+                <li><strong>Impactful Contributions :</strong> By joining our community, you become an integral part of a movement dedicated to revolutionizing education and empowering individuals with mental disabilities to reach their full potential. Your contributions, insights, and experiences help shape the future of inclusive education.</li>
+                
+                <li><strong>Empowerment and Advocacy :</strong> Together, we amplify our voices to advocate for positive change and greater inclusivity in education. Through collective action and advocacy efforts, we strive to create a more equitable and supportive educational environment for all individuals, regardless of their abilities.</li>
+                </ul>
+                
                 <br />
-                <span className="PandC-s2-gridDiv2-text3">
-                  Click on the button to join our Programs
-                </span>
+                
               </div>
               <div className="PandC-s2-gridDiv2-ButtonDiv">
-                {/* <span class="material-symbols-outlined PandCButton">
-                  diversity_1
-                </span> */}
+                
                 Join Now
               </div>
             </div>
           </div>
-          <div className="PandC-s2-gridDiv2">
-            <div className="PandC-s2-gridDiv-ImgContainer">
-              <img className="PandC-s2-gridDiv-Img1" src={img1} alt="" />
-            </div>
-          </div>
+          
         </div>
       </div>
     </>
