@@ -49,26 +49,31 @@ const EditProfileModal = ({ show, handleClose, userData }) => {
     setEducatorSearchResults([]);
     setEditedFields((prevFields) => ({
       ...prevFields,
-      educator_st: educator.name,
+      educator_st: { id: educator._id, name: educator.name },
     }));
   };
-
+  
   const handleSelectTherapist = (therapist) => {
     setSelectedTherapist(therapist);
     setSearchTerm("");
     setTherapistSearchResults([]);
     setEditedFields((prevFields) => ({
       ...prevFields,
-      therapist_st: therapist.name,
+      therapist_st: { id: therapist._id, name: therapist.name },
     }));
   };
+  
+
+  //console.log("selectedEducator:", selectedEducator);
+  //console.log("selectedTherapist:", selectedTherapist);
+  //console.log("educator_st", editedFields["educator_st"]);
 
   const handleSaveChanges = async () => {
     try {
       const updatedFields = {
         ...editedFields,
-        educator_st: selectedEducator,
-        therapist_st: selectedTherapist,
+        educator_st: selectedEducator ? { id: selectedEducator._id, name: selectedEducator.name } : editedFields.educator_st,
+        therapist_st: selectedTherapist ? { id: selectedTherapist._id, name: selectedTherapist.name } : editedFields.therapist_st,
       };
       //console.log("Updated fields:", updatedFields);
       const response = await axios.put(
@@ -175,7 +180,7 @@ const EditProfileModal = ({ show, handleClose, userData }) => {
                     <Form.Control
                       type="text"
                       name="educator_st"
-                      value={editedFields['educator_st'] || ''}
+                      value={selectedEducator ? selectedEducator.name : ''}
                       onChange={handleInputChange}
                     />
                     <Button variant="primary" onClick={handleSearchEducators}>Search</Button>
@@ -207,7 +212,7 @@ const EditProfileModal = ({ show, handleClose, userData }) => {
                     <Form.Control
                       type="text"
                       name="therapist_st"
-                      value={editedFields['therapist_st'] || ''}
+                      value={selectedTherapist ? selectedTherapist.name : ''}
                       onChange={handleInputChange}
                     />
                     <Button variant="primary" onClick={handleSearchTherapists}>Search</Button>
