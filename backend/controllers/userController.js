@@ -187,15 +187,11 @@ const authUser = asyncHandler(async (req, res) => {
 
 const searchStudents = asyncHandler(async (req, res) => {
   try {
-    // Retrieve the educator's ID from the request query parameters
     const loggedInEducatorId = req.query.educatorId;
-
-    // Query students associated with the logged-in educator
     const students = await User.find({
       'studentDetails.educator.id': loggedInEducatorId
     });
-
-    // Add students to educatorDetails.students array if not already present
+    
     const loggedInEducator = await User.findById(loggedInEducatorId);
     const existingStudents = loggedInEducator.educatorDetails.students.map(student => String(student.id));
     const newStudents = students.filter(student => !existingStudents.includes(String(student._id)));
@@ -203,6 +199,33 @@ const searchStudents = asyncHandler(async (req, res) => {
     if (newStudents.length > 0) {
       loggedInEducator.educatorDetails.students.push(...newStudents);
       await loggedInEducator.save();
+    }
+
+    //console.log('Students:', students);
+
+    // Return the list of students
+    res.json(students);
+  } catch (error) {
+    console.error('Error searching for students:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
+const searchStudentsinT = asyncHandler(async (req, res) => {
+  try {
+    const loggedInTherapistId = req.query.therapistId;
+    const students = await User.find({
+      'studentDetails.therapist.id': loggedInTherapistId
+    });
+    
+    const loggedInTherapist = await User.findById(loggedInTherapistId);
+    const existingStudents = loggedInTherapist.therapistDetails.students.map(student => String(student.id));
+    const newStudents = students.filter(student => !existingStudents.includes(String(student._id)));
+
+    if (newStudents.length > 0) {
+      loggedInTherapist.therapistDetails.students.push(...newStudents);
+      await loggedInTherapist.save();
     }
 
     //console.log('Students:', students);
@@ -309,5 +332,6 @@ module.exports = {
   getUserDetails,
   editUserDetails,
   searchUsersByRole,
-  searchStudents
+  searchStudents,
+  searchStudentsinT
 };

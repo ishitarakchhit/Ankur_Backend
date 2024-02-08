@@ -6,7 +6,7 @@ const EditProfileModal = ({ show, handleClose, userData }) => {
   const [editedFields, setEditedFields] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
   const [educatorSearchResults, setEducatorSearchResults] = useState([]);
-  const [selectedEducator, setSelectedEducator] = useState({});
+  const [selectedEducator, setSelectedEducator] = useState(JSON.parse(localStorage.getItem("userInfo.studentDetails.educator.name")) || null);
   const [therapistSearchResults, setTherapistSearchResults] = useState([]);
   const [selectedTherapist, setSelectedTherapist] = useState({});
 

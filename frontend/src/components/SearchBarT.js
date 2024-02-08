@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Form, FormControl, Button } from "react-bootstrap";
 import axios from "axios";
 
-const SearchBar = () => {
+const SearchBarT = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [students, setStudents] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState(
@@ -11,9 +11,9 @@ const SearchBar = () => {
 
   const handleSearch = async () => {
     try {
-      const loggedInEducatorId = JSON.parse(localStorage.getItem("userInfo"))._id;
+      const loggedInTherapistId = JSON.parse(localStorage.getItem("userInfo"))._id;
       const response = await axios.get(
-        `http://localhost:7070/api/user/searchst?searchTerm=${searchTerm}&educatorId=${loggedInEducatorId}`
+        `http://localhost:7070/api/user/searchstt?searchTerm=${searchTerm}&therapistId=${loggedInTherapistId}`
       );
       setStudents(response.data);
     } catch (error) {
@@ -53,4 +53,4 @@ const SearchBar = () => {
   );
 };
 
-export default SearchBar;
+export default SearchBarT;

@@ -22,6 +22,7 @@ const Sidebar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("userInfo");
+    localStorage.removeItem("selectedStudent");
     history("/");
 };
 

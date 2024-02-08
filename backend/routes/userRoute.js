@@ -11,6 +11,7 @@ const {
     editUserDetails,
     searchUsersByRole,
     searchStudents,
+    searchStudentsinT,
 } = require("../controllers/userController");
 
 const router = express.Router();
@@ -22,6 +23,7 @@ router.post("/listener/login", authListener);
 router.route("/").get(auth, allUsers);
 router.route("/search").get(searchUsersByRole);
 router.route("/searchst").get(searchStudents);
+router.route("/searchstt").get(searchStudentsinT);
 router.route("/:userId").get(getUserDetails);
 router.put("/:userId", editUserDetails);
 
