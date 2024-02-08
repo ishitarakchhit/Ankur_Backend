@@ -10,6 +10,7 @@ import "../styles/login.css";
 
 const Login = () => {
   const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
   const [show, setShow] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
     
@@ -18,7 +19,6 @@ const Login = () => {
     setShow(!show);
   };
     
-  const [password, setPassword] = React.useState("");
   const toast = useToast();
   const history = useNavigate();
 
@@ -64,7 +64,21 @@ const Login = () => {
       });
       localStorage.setItem("userInfo", JSON.stringify(data));
       setLoading(false);
-      history("/chat");
+      switch (data.role) {
+        case "student":
+          history("/dashboardS");
+          break;
+        case "educator":
+          history("/dashboardE");
+          break;
+        case "therapist":
+          history("/dashboardT");
+          break;
+        default:
+          // Default redirection if role is not recognized
+          history("/");
+          break;
+      }
     } catch (error) {
       toast({
         title: "Error Occured!",
@@ -112,7 +126,7 @@ const Login = () => {
                   placeholder="Password"
                   onChange={(e) => setPassword(e.target.value)}
                   value={password}
-                />{" "}
+                />
                 <button
                   style={{
                     height: "27px",

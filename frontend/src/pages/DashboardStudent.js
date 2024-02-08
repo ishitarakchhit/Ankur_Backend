@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import Sidebar from "../components/Sidebar";
+import CardLayout from "../components/CardLayout";
 import Navigation from "../components/Navigation";
 
 const DashboardS = () => {
@@ -16,6 +17,7 @@ const DashboardS = () => {
           {/* Main Content */}
           <Col sm={9} md={10} className="main-content">
             <h2>Welcome to the Dashboard</h2>
+            <CardLayout />
           </Col>
         </Row>
       </Container>

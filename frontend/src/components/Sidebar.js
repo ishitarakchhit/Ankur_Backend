@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
 import { FaUser, FaFemale, FaMale } from "react-icons/fa";
-import { Col, Image } from "react-bootstrap";
+import { Col, Button } from "react-bootstrap";
 import EditProfileModal from "./EditProfileModal";
 import axios from "axios";
 import "./Sidebar.css";
@@ -16,7 +17,13 @@ const Sidebar = () => {
   const handleCloseEditModal = () => {
     setShowEditModal(false);
   };
-  
+
+  const history = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("userInfo");
+    history("/");
+};
 
   const userFromLocalStorage = JSON.parse(localStorage.getItem("userInfo"));
 
@@ -38,7 +45,6 @@ const Sidebar = () => {
       console.log("User information not found");
     }
   }, []);
-  
 
   const getProfileIcon = () => {
     if (userData && userData.gender === "female") {
@@ -50,13 +56,12 @@ const Sidebar = () => {
     }
   };
 
-  //console.log("userData:", userData);
+  console.log("userData:", userData);
 
   return (
     <>
       <Col className="sidebar">
         <div className="profile-section">
-          
           <div className="profile-icon">{getProfileIcon()}</div>
           <div className="user-details">
             <h4>{userData ? userData.name : "Guest"}</h4>
@@ -103,10 +108,17 @@ const Sidebar = () => {
                 userData.studentDetails.school !== "*%$*&###"
                   ? userData.studentDetails.school
                   : "--"
-                }`}</p>
+              }`}</p>
               <p>{`Educator: ${
-                userData.studentDetails.educator !== "*%$*&###"
+                userData.studentDetails.educator &&
+                userData.studentDetails.educator.name
                   ? userData.studentDetails.educator.name
+                  : "--"
+                }`}</p>
+              <p>{`Therapist: ${
+                userData.studentDetails.therapist &&
+                userData.studentDetails.therapist.name
+                  ? userData.studentDetails.therapist.name
                   : "--"
               }`}</p>
             </>
@@ -160,11 +172,15 @@ const Sidebar = () => {
             </>
           )}
         </div>
-        <div className="edit-profile-link">
-          <p onClick={handleEditClick}>Edit Profile</p>
-        </div>
-          </Col>
-          {/* {console.log("test",userData)} */}
+        <Button onClick={handleEditClick}>
+          Edit Profile
+        </Button>
+
+        <Button variant="danger" onClick={handleLogout}>
+          Logout
+        </Button>
+      </Col>
+      {/* {console.log("test",userData)} */}
       <EditProfileModal
         show={showEditModal}
         handleClose={handleCloseEditModal}

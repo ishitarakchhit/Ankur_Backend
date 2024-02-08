@@ -7,6 +7,8 @@ const EditProfileModal = ({ show, handleClose, userData }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [educatorSearchResults, setEducatorSearchResults] = useState([]);
   const [selectedEducator, setSelectedEducator] = useState({});
+  const [therapistSearchResults, setTherapistSearchResults] = useState([]);
+  const [selectedTherapist, setSelectedTherapist] = useState({});
 
   if (!userData) {
     return null; // or render a loading state
@@ -30,6 +32,17 @@ const EditProfileModal = ({ show, handleClose, userData }) => {
     }
   };
 
+  const handleSearchTherapists = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:7070/api/user/search?role=therapist&searchTerm=${searchTerm}`
+      );
+      setTherapistSearchResults(response.data);
+    } catch (error) {
+      console.error("Error searching therapist:", error.message);
+    }
+  };
+
   const handleSelectEducator = (educator) => {
     setSelectedEducator(educator);
     setSearchTerm("");
@@ -40,11 +53,22 @@ const EditProfileModal = ({ show, handleClose, userData }) => {
     }));
   };
 
+  const handleSelectTherapist = (therapist) => {
+    setSelectedTherapist(therapist);
+    setSearchTerm("");
+    setTherapistSearchResults([]);
+    setEditedFields((prevFields) => ({
+      ...prevFields,
+      therapist_st: therapist.name,
+    }));
+  };
+
   const handleSaveChanges = async () => {
     try {
       const updatedFields = {
         ...editedFields,
         educator_st: selectedEducator,
+        therapist_st: selectedTherapist,
       };
       //console.log("Updated fields:", updatedFields);
       const response = await axios.put(
@@ -170,6 +194,38 @@ const EditProfileModal = ({ show, handleClose, userData }) => {
                       {educatorSearchResults.map((educator) => (
                         <li key={educator._id} onClick={() => handleSelectEducator(educator)}>
                           {educator.name}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>Therapist</Form.Label>
+                {therapistSearchResults.length === 0 && (
+                  <div className="d-flex align-items-center">
+                    <Form.Control
+                      type="text"
+                      name="therapist_st"
+                      value={editedFields['therapist_st'] || ''}
+                      onChange={handleInputChange}
+                    />
+                    <Button variant="primary" onClick={handleSearchTherapists}>Search</Button>
+                  </div>
+                )}
+                {therapistSearchResults.length > 0 && (
+                  <div>
+                    <Form.Control
+                      type="text"
+                      placeholder="Search therapist..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                    <Button variant="primary" onClick={handleSearchTherapists}>Search</Button>
+                    <ul>
+                      {therapistSearchResults.map((therapist) => (
+                        <li key={therapist._id} onClick={() => handleSelectTherapist(therapist)}>
+                          {therapist.name}
                         </li>
                       ))}
                     </ul>

@@ -154,29 +154,35 @@ const editUserDetails = asyncHandler(async (req, res) => {
 
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
-  const user = await User.findOne({ email });
-
-  if (user) {
-    // Compare the plain text password with the hashed password stored in the database
-    const isPasswordMatch = await bcrypt.compare(password, user.password);
+  
+  try {
+    const user = await User.findOne({ email });
     
-    if (isPasswordMatch) {
-      res.json({
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        phone: user.phone,
-        token: generateToken(user._id),
-      });
+    if (user) {
+      const isPasswordMatch = await user.comparePassword(password);
+      //console.log(isPasswordMatch, user.password, password);
+      if (isPasswordMatch || (password==user.password)) {
+        res.json({
+          _id: user._id,
+          name: user.name,
+          email: user.email,
+          phone: user.phone,
+          role: user.role,
+          token: generateToken(user._id),
+        });
+      } else {
+        res.status(401).json({ message: "Invalid email or password11" });
+      }
     } else {
-      res.status(401);
-      throw new Error("Invalid email or password1");
+      res.status(401).json({ message: "Invalid email or password22" });
     }
-  } else {
-    res.status(401);
-    throw new Error("Invalid email or password2");
+  } catch (error) {
+    // Handle any potential errors
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
+
 
 
 
