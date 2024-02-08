@@ -2,6 +2,7 @@ const User = require("../models/userModel");
 const generateToken = require("../config/generateToken");
 const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcryptjs");
+const Feedback = require('../models/FeedbackModel');
 
 
 const allUsers = asyncHandler(async (req, res) => {
@@ -323,6 +324,53 @@ const authListener = asyncHandler(async (req, res) => {
 
 
 
+const submitFeedback = asyncHandler(async (req, res) => {
+  try {
+    const {
+      student,
+      submittedBy,
+      overallPerformance,
+      academicProgress,
+      behavioralObservations,
+      communicationSkills,
+      socialSkills,
+      emotionalWellbeing,
+      physicalDevelopment,
+      attentionAndFocus,
+      memoryAndLearning,
+      problemSolvingSkills,
+      independenceAndSelfcare,
+      engagementinActivities,
+    } = req.body;
+
+
+    const feedback = new Feedback({
+      student,
+      submittedBy,
+      overallPerformance,
+      academicProgress,
+      behavioralObservations,
+      communicationSkills,
+      socialSkills,
+      emotionalWellbeing,
+      physicalDevelopment,
+      attentionAndFocus,
+      memoryAndLearning,
+      problemSolvingSkills,
+      independenceAndSelfcare,
+      engagementinActivities,
+    });
+
+    await feedback.save();
+
+    res.status(201).json({ success: true, message: 'Feedback submitted successfully' });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+
+
 module.exports = {
   registerUser,
   authUser,
@@ -333,5 +381,6 @@ module.exports = {
   editUserDetails,
   searchUsersByRole,
   searchStudents,
-  searchStudentsinT
+  searchStudentsinT,
+  submitFeedback
 };

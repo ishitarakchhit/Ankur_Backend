@@ -5,6 +5,7 @@ import { Col, Button } from "react-bootstrap";
 import EditProfileModal from "./EditProfileModal";
 import axios from "axios";
 import "./Sidebar.css";
+import { useToast } from "@chakra-ui/react";
 
 const Sidebar = () => {
   const [userData, setUserData] = useState(null);
@@ -18,11 +19,19 @@ const Sidebar = () => {
     setShowEditModal(false);
   };
 
+  const toast = useToast();
   const history = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem("userInfo");
     localStorage.removeItem("selectedStudent");
+    toast({
+      title: "Logout Successful",
+      status: "success",
+      duration: 5000,
+      isClosable: true,
+      position: "bottom",
+    });
     history("/");
 };
 
