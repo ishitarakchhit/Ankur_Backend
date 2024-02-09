@@ -2,24 +2,25 @@ const User = require("../models/userModel");
 const generateToken = require("../config/generateToken");
 const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcryptjs");
+const Feedback = require('../models/FeedbackModel');
+const Performance = require('../models/PerformanceModel');
 
 
 const allUsers = asyncHandler(async (req, res) => {
-    const keyword = req.query.search
-        ? {
-            $or: [
-                { spec1: { $regex: req.query.search, $options: "i" } },
-                { spec2: { $regex: req.query.search, $options: "i" } },
-                { spec3: { $regex: req.query.search, $options: "i" } }
-            ],
-            
-        }
-    : {};
-    //console.log(keyword);
-    const users = await User.find(keyword);
-    //console.log("user", users)
-    res.send(users);
+  const keyword = req.query.search ? {
+      role: "therapist",
+      $or: [
+          { name: { $regex: req.query.search, $options: "i" } },
+          { spec1: { $regex: req.query.search, $options: "i" } },
+          { spec2: { $regex: req.query.search, $options: "i" } },
+          { spec3: { $regex: req.query.search, $options: "i" } }
+      ]
+  } : { role: "therapist" };
+
+  const users = await User.find(keyword);
+  res.send(users);
 });
+
 
 
 
@@ -323,6 +324,126 @@ const authListener = asyncHandler(async (req, res) => {
 
 
 
+const submitFeedback = asyncHandler(async (req, res) => {
+  try {
+    const {
+      student,
+      submittedBy,
+      overallPerformance,
+      academicProgress,
+      behavioralObservations,
+      communicationSkills,
+      socialSkills,
+      emotionalWellbeing,
+      physicalDevelopment,
+      attentionAndFocus,
+      memoryAndLearning,
+      problemSolvingSkills,
+      independenceAndSelfcare,
+      engagementinActivities,
+    } = req.body;
+
+
+    const feedback = new Feedback({
+      student,
+      submittedBy,
+      overallPerformance,
+      academicProgress,
+      behavioralObservations,
+      communicationSkills,
+      socialSkills,
+      emotionalWellbeing,
+      physicalDevelopment,
+      attentionAndFocus,
+      memoryAndLearning,
+      problemSolvingSkills,
+      independenceAndSelfcare,
+      engagementinActivities,
+    });
+
+    await feedback.save();
+
+    res.status(201).json({ success: true, message: 'Feedback submitted successfully' });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+
+const getPastFeedbacks = asyncHandler(async (req, res) => {
+  try {
+    const { studentId, loggedInUserId } = req.body;
+
+    const feedbacks = await Feedback.find({
+      'submittedBy.id': loggedInUserId,
+      'student.id': studentId,
+    }).sort({ submittedAt: -1 });
+
+    //console.log(feedbacks);
+    res.status(200).json(feedbacks);
+  } catch (error) {
+    console.error('Error fetching past feedbacks:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
+const submitAcademicResults = asyncHandler(async (req, res) => {
+  try {
+    const {
+      student,
+      subject1,
+      subject2,
+      subject3,
+      subject4,
+      subject5,
+      examType,
+      aquiredmarks,
+      totalmarks,
+    } = req.body;
+
+    const performance = new Performance({
+      student,
+      academics: {
+        subject1,
+        subject2,
+        subject3,
+        subject4,
+        subject5,
+      },
+      examType,
+      totalmarks,
+      aquiredmarks,
+    });
+
+    await performance.save();
+
+    res.status(201).json({ success: true, message: 'Academic results submitted successfully' });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+
+
+const getPastAcademicResults = asyncHandler(async (req, res) => {
+  try {
+    const { studentId } = req.body;
+
+    const academicResults = await Performance.find({
+      'student.id': studentId,
+    }).sort({ createdAt: -1 });
+
+    res.status(200).json(academicResults);
+  } catch (error) {
+    console.error('Error fetching past academic results:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
+
+
 module.exports = {
   registerUser,
   authUser,
@@ -333,5 +454,9 @@ module.exports = {
   editUserDetails,
   searchUsersByRole,
   searchStudents,
-  searchStudentsinT
+  searchStudentsinT,
+  submitFeedback,
+  getPastFeedbacks,
+  submitAcademicResults,
+  getPastAcademicResults
 };

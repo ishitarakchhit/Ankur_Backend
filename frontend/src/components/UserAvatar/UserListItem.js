@@ -29,7 +29,7 @@ const UserListItem = ({ user, handleFunction }) => {
         src={user.pic}
       />
       <Box>
-        <Text style={{ fontSize: "20px" }}>{user.samename}</Text>
+        <Text style={{ fontSize: "20px" }}>{user.name}</Text>
         <Text fontSize="s">
           <b style={{ marginTop: "20px" }}>
             <i>Email : </i>{" "}
@@ -37,10 +37,10 @@ const UserListItem = ({ user, handleFunction }) => {
           {user.email}
           <br />
           <b>
-            <i>Qualification: </i>{" "}
+            <i>Work Description: </i>{" "}
           </b>
 
-          {user.course}
+          {user.therapistDetails.work_desc}
           <br />
           <span className="star" style={{ display: "flex" }}>
             <IoIosStar style={{ color: "grey" }} />{" "}
@@ -51,9 +51,9 @@ const UserListItem = ({ user, handleFunction }) => {
           </span>
           <b>
             {" "}
-            <i>About :</i>{" "}
+            <i>Years of Experience :</i>{" "}
           </b>
-          {user.desc}
+          {user.therapistDetails.experience_year}
           <br />
         </Text>
       </Box>

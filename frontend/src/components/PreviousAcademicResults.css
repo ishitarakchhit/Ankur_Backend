@@ -1,0 +1,24 @@
+.previous-academic-results-container {
+  margin-top: 20px;
+}
+
+.result-block {
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.result-header {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+}
+
+.result-details {
+  padding: 10px 0;
+}
+
+.result-details p {
+  margin: 5px 0;
+}

@@ -2,19 +2,28 @@ const mongoose = require("mongoose");
 
 const FeedbackSchema = new mongoose.Schema({
   student: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
+    id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+    name: {
+      type: String,
+    },
   },
   submittedBy: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
+    id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+    name: {
+      type: String,
+    },
   },
   submittedAt: { type: Date, default: Date.now },
   overallPerformance: {
     type: String,
-    enum: ["excellent", "good", "average", "poor"],
   },
   academicProgress: { type: String },
   behavioralObservations: { type: String },

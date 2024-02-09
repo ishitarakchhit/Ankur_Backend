@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import Sidebar from "../components/Sidebar";
 import Navigation from "../components/Navigation";
 import SearchBarT from "../components/SearchBarT";
 import CardLayoutT from "../components/CardLayoutT";
+import FeedbackForm from "../components/FeedbackForm";
 
 
 const DashboardT = () => {
+  const [showFeedbackForm, setShowFeedbackForm] = useState(false);
+
+  const toggleFeedbackForm = () => {
+    setShowFeedbackForm(!showFeedbackForm);
+  };
+
   return (
     <>
       <Navigation />
@@ -20,7 +27,8 @@ const DashboardT = () => {
           <Col sm={9} md={10} className="main-content">
             <h2>Welcome to the Dashboard</h2>
             <SearchBarT />
-            <CardLayoutT />
+            <CardLayoutT toggleFeedbackForm={toggleFeedbackForm} />
+            {showFeedbackForm && <FeedbackForm />}
           </Col>
         </Row>
       </Container>

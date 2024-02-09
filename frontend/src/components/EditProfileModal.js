@@ -1,14 +1,20 @@
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import axios from "axios";
+import { useToast } from "@chakra-ui/react";
 
 const EditProfileModal = ({ show, handleClose, userData }) => {
   const [editedFields, setEditedFields] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
   const [educatorSearchResults, setEducatorSearchResults] = useState([]);
-  const [selectedEducator, setSelectedEducator] = useState(JSON.parse(localStorage.getItem("userInfo.studentDetails.educator.name")) || null);
+  const [selectedEducator, setSelectedEducator] = useState(
+    JSON.parse(localStorage.getItem("userInfo.studentDetails.educator.name")) ||
+      null
+  );
   const [therapistSearchResults, setTherapistSearchResults] = useState([]);
   const [selectedTherapist, setSelectedTherapist] = useState({});
+
+  const toast = useToast();
 
   if (!userData) {
     return null; // or render a loading state
@@ -52,7 +58,7 @@ const EditProfileModal = ({ show, handleClose, userData }) => {
       educator_st: { id: educator._id, name: educator.name },
     }));
   };
-  
+
   const handleSelectTherapist = (therapist) => {
     setSelectedTherapist(therapist);
     setSearchTerm("");
@@ -62,7 +68,6 @@ const EditProfileModal = ({ show, handleClose, userData }) => {
       therapist_st: { id: therapist._id, name: therapist.name },
     }));
   };
-  
 
   //console.log("selectedEducator:", selectedEducator);
   //console.log("selectedTherapist:", selectedTherapist);
@@ -72,8 +77,12 @@ const EditProfileModal = ({ show, handleClose, userData }) => {
     try {
       const updatedFields = {
         ...editedFields,
-        educator_st: selectedEducator ? { id: selectedEducator._id, name: selectedEducator.name } : editedFields.educator_st,
-        therapist_st: selectedTherapist ? { id: selectedTherapist._id, name: selectedTherapist.name } : editedFields.therapist_st,
+        educator_st: selectedEducator
+          ? { id: selectedEducator._id, name: selectedEducator.name }
+          : editedFields.educator_st,
+        therapist_st: selectedTherapist
+          ? { id: selectedTherapist._id, name: selectedTherapist.name }
+          : editedFields.therapist_st,
       };
       //console.log("Updated fields:", updatedFields);
       const response = await axios.put(
@@ -82,9 +91,24 @@ const EditProfileModal = ({ show, handleClose, userData }) => {
       );
 
       console.log("Changes saved:", response.data);
+      toast({
+        title: "Changes Saved",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
       handleClose();
     } catch (error) {
       console.error("Error saving changes:", error.message);
+      toast({
+        title: "Error Saving Changes!",
+        description: error.response.data.message,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
     }
   };
 
@@ -180,10 +204,12 @@ const EditProfileModal = ({ show, handleClose, userData }) => {
                     <Form.Control
                       type="text"
                       name="educator_st"
-                      value={selectedEducator ? selectedEducator.name : ''}
+                      value={selectedEducator ? selectedEducator.name : ""}
                       onChange={handleInputChange}
                     />
-                    <Button variant="primary" onClick={handleSearchEducators}>Search</Button>
+                    <Button variant="primary" onClick={handleSearchEducators}>
+                      Search
+                    </Button>
                   </div>
                 )}
                 {educatorSearchResults.length > 0 && (
@@ -194,10 +220,15 @@ const EditProfileModal = ({ show, handleClose, userData }) => {
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                     />
-                    <Button variant="primary" onClick={handleSearchEducators}>Search</Button>
+                    <Button variant="primary" onClick={handleSearchEducators}>
+                      Search
+                    </Button>
                     <ul>
                       {educatorSearchResults.map((educator) => (
-                        <li key={educator._id} onClick={() => handleSelectEducator(educator)}>
+                        <li
+                          key={educator._id}
+                          onClick={() => handleSelectEducator(educator)}
+                        >
                           {educator.name}
                         </li>
                       ))}
@@ -212,10 +243,12 @@ const EditProfileModal = ({ show, handleClose, userData }) => {
                     <Form.Control
                       type="text"
                       name="therapist_st"
-                      value={selectedTherapist ? selectedTherapist.name : ''}
+                      value={selectedTherapist ? selectedTherapist.name : ""}
                       onChange={handleInputChange}
                     />
-                    <Button variant="primary" onClick={handleSearchTherapists}>Search</Button>
+                    <Button variant="primary" onClick={handleSearchTherapists}>
+                      Search
+                    </Button>
                   </div>
                 )}
                 {therapistSearchResults.length > 0 && (
@@ -226,10 +259,15 @@ const EditProfileModal = ({ show, handleClose, userData }) => {
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                     />
-                    <Button variant="primary" onClick={handleSearchTherapists}>Search</Button>
+                    <Button variant="primary" onClick={handleSearchTherapists}>
+                      Search
+                    </Button>
                     <ul>
                       {therapistSearchResults.map((therapist) => (
-                        <li key={therapist._id} onClick={() => handleSelectTherapist(therapist)}>
+                        <li
+                          key={therapist._id}
+                          onClick={() => handleSelectTherapist(therapist)}
+                        >
                           {therapist.name}
                         </li>
                       ))}

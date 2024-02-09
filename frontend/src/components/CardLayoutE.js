@@ -1,9 +1,9 @@
 import React from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faComment, faPhone, faUsers, faChartBar, faGamepad, faBook } from "@fortawesome/free-solid-svg-icons";
+import { faUsers, faChartBar, faBook } from "@fortawesome/free-solid-svg-icons";
 
-const CardLayoutE = () => {
+const CardLayoutE = ({ toggleFeedbackForm, toggleAcademicForm }) => {
   return (
     <div>
       <Row className="card-container">
@@ -14,8 +14,7 @@ const CardLayoutE = () => {
               <FontAwesomeIcon icon={faUsers} size="3x" />
               <Card.Title>Feedback Form</Card.Title>
               <Card.Text>Submit student feedback weekly</Card.Text>
-              {/* Add onClick handler to redirect to feedback page */}
-              <Card.Link href="/feedback">Submit Feedback</Card.Link>
+              <Card.Link onClick={toggleFeedbackForm}>Submit Feedback</Card.Link>
             </Card.Body>
           </Card>
         </Col>
@@ -38,7 +37,7 @@ const CardLayoutE = () => {
               <FontAwesomeIcon icon={faBook} size="3x" />
               <Card.Title>Enter Academics Result</Card.Title>
               <Card.Text>Add student's academic results</Card.Text>
-              <Card.Link href="/academicentry">Enter Results</Card.Link>
+              <Card.Link onClick={toggleAcademicForm}>Add Academic Results</Card.Link>
             </Card.Body>
           </Card>
         </Col>

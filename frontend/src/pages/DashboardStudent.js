@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import Sidebar from "../components/Sidebar";
 import CardLayout from "../components/CardLayout";
 import Navigation from "../components/Navigation";
+import FeedbackFormS from "../components/FeedbackFormS";
 
 const DashboardS = () => {
+  const [showFeedbackForm, setShowFeedbackForm] = useState(false);
+
+  const toggleFeedbackForm = () => {
+    setShowFeedbackForm(!showFeedbackForm);
+  };
+
   return (
     <>
       <Navigation />
@@ -17,7 +24,8 @@ const DashboardS = () => {
           {/* Main Content */}
           <Col sm={9} md={10} className="main-content">
             <h2>Welcome to the Dashboard</h2>
-            <CardLayout />
+            <CardLayout toggleFeedbackForm={toggleFeedbackForm} />
+            {showFeedbackForm && <FeedbackFormS />}
           </Col>
         </Row>
       </Container>
