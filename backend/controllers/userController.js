@@ -6,21 +6,20 @@ const Feedback = require('../models/FeedbackModel');
 
 
 const allUsers = asyncHandler(async (req, res) => {
-    const keyword = req.query.search
-        ? {
-            $or: [
-                { spec1: { $regex: req.query.search, $options: "i" } },
-                { spec2: { $regex: req.query.search, $options: "i" } },
-                { spec3: { $regex: req.query.search, $options: "i" } }
-            ],
-            
-        }
-    : {};
-    //console.log(keyword);
-    const users = await User.find(keyword);
-    //console.log("user", users)
-    res.send(users);
+  const keyword = req.query.search ? {
+      role: "therapist",
+      $or: [
+          { name: { $regex: req.query.search, $options: "i" } },
+          { spec1: { $regex: req.query.search, $options: "i" } },
+          { spec2: { $regex: req.query.search, $options: "i" } },
+          { spec3: { $regex: req.query.search, $options: "i" } }
+      ]
+  } : { role: "therapist" };
+
+  const users = await User.find(keyword);
+  res.send(users);
 });
+
 
 
 

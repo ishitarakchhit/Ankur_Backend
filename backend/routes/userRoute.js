@@ -22,7 +22,7 @@ router.route("/").post(registerUser);
 router.post("/login", authUser);
 router.post("/listener", registerListener);
 router.post("/listener/login", authListener);
-router.route("/").get(auth, allUsers);
+router.route("/").get(allUsers);
 router.route("/search").get(searchUsersByRole);
 router.route("/searchst").get(searchStudents);
 router.route("/searchstt").get(searchStudentsinT);

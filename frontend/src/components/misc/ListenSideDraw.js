@@ -109,7 +109,7 @@ import {
             </Button>
           </Tooltip> */}
           <Text fontSize="2xl" fontFamily="Work Sans">
-            EASE UP
+            ANKUR
           </Text>
           <div>
             <Menu>
@@ -122,7 +122,7 @@ import {
                 <Avatar
                   size="sm"
                   cursor="pointer"
-                  name={user.samename}
+                  name={user.name}
                   // src={user.pic}
                 />
               </MenuButton>
