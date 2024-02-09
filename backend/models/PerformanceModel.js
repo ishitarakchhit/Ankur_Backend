@@ -2,9 +2,11 @@ const mongoose = require("mongoose");
 
 const PerformanceSchema = new mongoose.Schema({
   student: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
+    id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+    name: String,
   },
   academics: {
     subject1: {
@@ -24,7 +26,7 @@ const PerformanceSchema = new mongoose.Schema({
     },
   },
   examType: { type: String},
-  tatalmarks: { type: Number },
+  totalmarks: { type: Number },
   aquiredmarks: { type: Number },
 });
 

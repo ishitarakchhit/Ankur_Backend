@@ -3,7 +3,7 @@ import { Card, Col, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUsers, faChartBar, faBook } from "@fortawesome/free-solid-svg-icons";
 
-const CardLayoutE = ({ toggleFeedbackForm }) => {
+const CardLayoutE = ({ toggleFeedbackForm, toggleAcademicForm }) => {
   return (
     <div>
       <Row className="card-container">
@@ -37,7 +37,7 @@ const CardLayoutE = ({ toggleFeedbackForm }) => {
               <FontAwesomeIcon icon={faBook} size="3x" />
               <Card.Title>Enter Academics Result</Card.Title>
               <Card.Text>Add student's academic results</Card.Text>
-              <Card.Link href="/academicentry">Enter Results</Card.Link>
+              <Card.Link onClick={toggleAcademicForm}>Add Academic Results</Card.Link>
             </Card.Body>
           </Card>
         </Col>

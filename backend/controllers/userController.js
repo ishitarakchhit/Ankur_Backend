@@ -3,6 +3,7 @@ const generateToken = require("../config/generateToken");
 const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcryptjs");
 const Feedback = require('../models/FeedbackModel');
+const Performance = require('../models/PerformanceModel');
 
 
 const allUsers = asyncHandler(async (req, res) => {
@@ -387,6 +388,61 @@ const getPastFeedbacks = asyncHandler(async (req, res) => {
 });
 
 
+const submitAcademicResults = asyncHandler(async (req, res) => {
+  try {
+    const {
+      student,
+      subject1,
+      subject2,
+      subject3,
+      subject4,
+      subject5,
+      examType,
+      aquiredmarks,
+      totalmarks,
+    } = req.body;
+
+    const performance = new Performance({
+      student,
+      academics: {
+        subject1,
+        subject2,
+        subject3,
+        subject4,
+        subject5,
+      },
+      examType,
+      totalmarks,
+      aquiredmarks,
+    });
+
+    await performance.save();
+
+    res.status(201).json({ success: true, message: 'Academic results submitted successfully' });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+
+
+const getPastAcademicResults = asyncHandler(async (req, res) => {
+  try {
+    const { studentId } = req.body;
+
+    const academicResults = await Performance.find({
+      'student.id': studentId,
+    }).sort({ createdAt: -1 });
+
+    res.status(200).json(academicResults);
+  } catch (error) {
+    console.error('Error fetching past academic results:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
+
 
 module.exports = {
   registerUser,
@@ -400,5 +456,7 @@ module.exports = {
   searchStudents,
   searchStudentsinT,
   submitFeedback,
-  getPastFeedbacks
+  getPastFeedbacks,
+  submitAcademicResults,
+  getPastAcademicResults
 };

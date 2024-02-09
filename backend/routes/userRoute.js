@@ -13,7 +13,9 @@ const {
     searchStudents,
     searchStudentsinT,
     submitFeedback,
-    getPastFeedbacks
+    getPastFeedbacks,
+    submitAcademicResults,
+    getPastAcademicResults,
 } = require("../controllers/userController");
 
 const router = express.Router();
@@ -30,6 +32,8 @@ router.route("/:userId").get(getUserDetails);
 router.put("/:userId", editUserDetails);
 router.post("/feedback", submitFeedback);
 router.post("/prevfeedback", getPastFeedbacks);
+router.post("/academics", submitAcademicResults);
+router.post("/prevacademicresult", getPastAcademicResults);
 
 
 
