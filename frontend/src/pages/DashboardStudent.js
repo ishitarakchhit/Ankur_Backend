@@ -3,7 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import Sidebar from "../components/Sidebar";
 import CardLayout from "../components/CardLayout";
 import Navigation from "../components/Navigation";
-import FeedbackForm from "../components/FeedbackForm";
+import FeedbackFormS from "../components/FeedbackFormS";
 
 const DashboardS = () => {
   const [showFeedbackForm, setShowFeedbackForm] = useState(false);
@@ -25,7 +25,7 @@ const DashboardS = () => {
           <Col sm={9} md={10} className="main-content">
             <h2>Welcome to the Dashboard</h2>
             <CardLayout toggleFeedbackForm={toggleFeedbackForm} />
-            {showFeedbackForm && <FeedbackForm />}
+            {showFeedbackForm && <FeedbackFormS />}
           </Col>
         </Row>
       </Container>

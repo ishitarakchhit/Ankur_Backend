@@ -13,6 +13,7 @@ const {
     searchStudents,
     searchStudentsinT,
     submitFeedback,
+    getPastFeedbacks
 } = require("../controllers/userController");
 
 const router = express.Router();
@@ -28,6 +29,7 @@ router.route("/searchstt").get(searchStudentsinT);
 router.route("/:userId").get(getUserDetails);
 router.put("/:userId", editUserDetails);
 router.post("/feedback", submitFeedback);
+router.post("/prevfeedback", getPastFeedbacks);
 
 
 

@@ -25,7 +25,6 @@ const CardLayout = ({ toggleFeedbackForm }) => {
               <FontAwesomeIcon icon={faPhone} size="3x" />
               <Card.Title>Call/Video</Card.Title>
               <Card.Text>Initiate a call or video session</Card.Text>
-              {/* Add onClick handler to redirect to call/video page */}
               <Card.Link href="/videocall">Initiate Call</Card.Link>
             </Card.Body>
           </Card>

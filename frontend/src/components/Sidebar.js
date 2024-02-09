@@ -66,7 +66,7 @@ const Sidebar = () => {
     }
   };
 
-  console.log("userData:", userData);
+  //console.log("userData:", userData);
 
   return (
     <>

@@ -370,6 +370,24 @@ const submitFeedback = asyncHandler(async (req, res) => {
 });
 
 
+const getPastFeedbacks = asyncHandler(async (req, res) => {
+  try {
+    const { studentId, loggedInUserId } = req.body;
+
+    const feedbacks = await Feedback.find({
+      'submittedBy.id': loggedInUserId,
+      'student.id': studentId,
+    }).sort({ submittedAt: -1 });
+
+    //console.log(feedbacks);
+    res.status(200).json(feedbacks);
+  } catch (error) {
+    console.error('Error fetching past feedbacks:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
 
 module.exports = {
   registerUser,
@@ -382,5 +400,6 @@ module.exports = {
   searchUsersByRole,
   searchStudents,
   searchStudentsinT,
-  submitFeedback
+  submitFeedback,
+  getPastFeedbacks
 };

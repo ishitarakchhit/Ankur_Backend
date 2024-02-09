@@ -1,0 +1,26 @@
+.previous-feedbacks-container {
+  margin-top: 20px;
+}
+
+.feedback-block {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.feedback-header {
+  background-color: #f0f0f0;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.date {
+  margin-left: 20px;
+}
+
+.feedback-details {
+  background-color: #fafafa;
+  padding: 10px;
+  border-top: 1px solid #ccc;
+}
+

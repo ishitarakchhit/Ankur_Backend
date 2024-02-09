@@ -4,8 +4,8 @@ import axios from "axios";
 import { useToast } from "@chakra-ui/react";
 import PreviousFeedbacks from "./PreviousFeedback";
 
-const FeedbackForm = () => {
-  const selectedStudent = JSON.parse(localStorage.getItem("selectedStudent"));
+const FeedbackFormS = () => {
+  //const selectedStudent = JSON.parse(localStorage.getItem("selectedStudent"));
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
   const [showPreviousFeedbacks, setShowPreviousFeedbacks] = useState(false);
@@ -14,8 +14,8 @@ const FeedbackForm = () => {
 
   const [formData, setFormData] = useState({
     student: {
-      id: selectedStudent ? selectedStudent._id : "",
-      name: selectedStudent ? selectedStudent.name : "",
+        id: userInfo ? userInfo._id : "",
+        name: userInfo ? userInfo.name : "",
     },
     submittedBy: {
       id: userInfo ? userInfo._id : "",
@@ -34,95 +34,6 @@ const FeedbackForm = () => {
     independenceAndSelfcare: "",
     engagementinActivities: "",
   });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!selectedStudent) {
-      toast({
-        title: "No Student Selected",
-        description: "Please select a student first.",
-        status: "warning",
-        duration: 5000,
-        isClosable: true,
-      });
-      return;
-    }
-    //console.log("Form data:", formData);
-    try {
-      const updatedFormData = {
-        ...formData,
-        student: {
-          id: selectedStudent._id,
-          name: selectedStudent.name,
-        },
-      };
-
-      const response = await axios.post(
-        "http://localhost:7070/api/user/feedback",
-        updatedFormData
-      );
-      if (response.status === 201) {
-        console.log("Feedback submitted successfully");
-        toast({
-          title: "Feedback submitted successfully",
-          status: "success",
-          duration: 5000,
-          isClosable: true,
-          position: "bottom",
-        });
-        setFormData({
-          student: {
-            id: selectedStudent._id,
-            name: selectedStudent.name,
-          },
-          submittedBy: {
-            id: userInfo._id,
-            name: userInfo.name,
-          },
-          overallPerformance: "",
-          academicProgress: "",
-          behavioralObservations: "",
-          communicationSkills: "",
-          socialSkills: "",
-          emotionalWellbeing: "",
-          physicalDevelopment: "",
-          attentionAndFocus: "",
-          memoryAndLearning: "",
-          problemSolvingSkills: "",
-          independenceAndSelfcare: "",
-          engagementinActivities: "",
-        });
-      } else {
-        console.error("Failed to submit feedback");
-        toast({
-          title: "Failed to submit feedback!",
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-          position: "bottom",
-        });
-      }
-    } catch (error) {
-      console.error("Error submitting feedback:", error.message);
-      toast({
-        title: "Error submitting feedback!",
-        description: error.response.data.message,
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom",
-      });
-    }
-  };
-
-  const togglePreviousFeedbacks = () => {
-    setShowPreviousFeedbacks((prevState) => !prevState);
-  };
 
   const questions = [
     {
@@ -188,6 +99,77 @@ const FeedbackForm = () => {
     },
   ];
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    //console.log("Form data:", formData);
+    try {
+      const response = await axios.post(
+        "http://localhost:7070/api/user/feedback",
+        formData
+      );
+      if (response.status === 201) {
+        console.log("Feedback submitted successfully");
+        toast({
+          title: "Feedback submitted successfully",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom",
+        });
+        setFormData({
+          student: {
+            id: userInfo._id,
+            name: userInfo.name,
+          },
+          submittedBy: {
+            id: userInfo._id,
+            name: userInfo.name,
+          },
+          overallPerformance: "",
+          academicProgress: "",
+          behavioralObservations: "",
+          communicationSkills: "",
+          socialSkills: "",
+          emotionalWellbeing: "",
+          physicalDevelopment: "",
+          attentionAndFocus: "",
+          memoryAndLearning: "",
+          problemSolvingSkills: "",
+          independenceAndSelfcare: "",
+          engagementinActivities: "",
+        });
+      } else {
+        console.error("Failed to submit feedback");
+        toast({
+          title: "Failed to submit feedback!",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom",
+        });
+      }
+    } catch (error) {
+      console.error("Error submitting feedback:", error.message);
+      toast({
+        title: "Error submitting feedback!",
+        description: error.response.data.message,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+    }
+  };
+
+  const togglePreviousFeedbacks = () => {
+    setShowPreviousFeedbacks((prevState) => !prevState);
+  };
+
   return (
     <Container className="feedback-form">
       <h3 className="mb-4">Feedback Form</h3>
@@ -236,10 +218,10 @@ const FeedbackForm = () => {
       </Button>
 
       {showPreviousFeedbacks && (
-        <PreviousFeedbacks student={selectedStudent} sender={userInfo} />
+        <PreviousFeedbacks student={userInfo} sender={userInfo} />
       )}
     </Container>
   );
 };
 
-export default FeedbackForm;
+export default FeedbackFormS;
